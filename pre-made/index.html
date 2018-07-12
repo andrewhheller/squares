@@ -91,24 +91,18 @@
 
   const hide = document.getElementById('hideAllTheSquares');
   const show = document.getElementById('showAllTheSquares');
-  const togggleGreen = document.getElementById('toggleGreen');
-  const togggleBlue= document.getElementById('toggleBlue');
-  const togggleRed = document.getElementById('toggleRed');
+  const toggleGreen = document.getElementById('toggleGreen');
+  const toggleBlue = document.getElementById('toggleBlue');
+  const toggleRed = document.getElementById('toggleRed');
   const greenSquare = document.getElementById('green');
   const blueSquare = document.getElementById('blue');
   const redSquare = document.getElementById('red');
 
   hide.addEventListener('click', function() {
 
-    // squaresArray.forEach(element => {
-    //   element.style.display = 'none';
-    // });
-
     squaresArray.forEach(element => {
       element.classList.add('hide');
     });
-
-
 
   });
 

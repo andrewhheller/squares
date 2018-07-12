@@ -2,16 +2,209 @@
 
 <html lang="en-US">
 
+<head>
+  <title>Squares Workshop</title>
+  <meta charset="UTF-8">
 
+  <style>
+  
+    .squareContainer {
+      display: flex;
+      justify-content: space-around;
+      height: 100px;
+    }
 
+    .square {
+      width: 100px;
+      height: 100px;
+      border: solid 1px black;
+    }
 
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+    }
 
+    button {
+      height: 50px;
+      cursor: pointer;
+    }
 
+    .hide {
+        display: none;
+    }
+  
+  </style>
+  
+</head>
 
+<body>
+
+  <script>
+
+      const colors = ['blue', 'green', 'yellow', 'orange'];
+      
+      const generateDom = array => {
+
+        // ##### CREATE UI #####
+      
+        // grab document.body
+        const body = document.body;
+      
+        // grab script element
+        const script = document.getElementsByTagName('script')[0];
+
+        // create custom CSS styles in <style> tag
+        // grab style tag element
+        // for each element color in array passed in, create custom style
+        const style = document.getElementsByTagName('style')[0];
+        array.forEach(element => {
+          style.textContent += ("#" + element + " {background-color: " + element + "} ");
+        })
+      
+        // create page title element
+        // add title text
+        // insert title element directly before script element (last element in body)
+        const title = document.createElement('h1');
+        title.textContent = "The Square Demo";
+        body.insertBefore(title, script);
+      
+        // create div to hold all squares
+        // add class 'square'
+        // add div that holds all squares element right before scirp element (last element in body)
+        const divSquareContainer = document.createElement('div');
+        divSquareContainer.classList.add('squareContainer');
+        body.insertBefore(divSquareContainer, script);
+      
+        // for each color element of array that is passed in -->
+        // 1: create a 'div' element
+        // 2: set id to element name (color)
+        // 3: add class 'square' to div
+        // 4: add div element to parent node div square container
+        array.forEach(element => {
+          const div = document.createElement('div');
+          div.setAttribute('id', element);
+          div.classList.add('square');
+          divSquareContainer.appendChild(div);
+        });
+      
+        // create element <hr> and insert right before last child in body (script)
+        const horizontalLine = document.createElement('hr');
+        body.insertBefore(horizontalLine, script);     
+
+        // create 'div' element that will hold all buttons
+        // add class 'button container' to div element
+        // add div that holds all squares element right before scirp element (last element in body)
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('buttonContainer');
+        body.insertBefore(buttonContainer, script);
+
+        // create the following button elements which are 'fixed' regardless of color elements in array
+
+        // create hide all button element
+        // set 'id' attribute to "hideAllTheSquares"
+        // set text content to "Hide all the squares"
+        // insert into button hide all button container 'div'
+        const buttonHideAllSquares = document.createElement('button');
+        buttonHideAllSquares.setAttribute('id', 'hideAllTheSquares');
+        buttonHideAllSquares.textContent = "Hide all the squares";
+        buttonContainer.appendChild(buttonHideAllSquares);
+
+        // create show all button element
+        // set 'id' attribute to "showAllTheSquares"
+        // set text content to "Show all the squares"
+        // insert into button show all button container 'div'
+        const buttonShowAllSquares = document.createElement('button');
+        buttonShowAllSquares.setAttribute('id', 'showAllTheSquares');
+        buttonShowAllSquares.textContent = "Show all the squares";
+        buttonContainer.appendChild(buttonShowAllSquares);
+
+        // the remaining buttons must be custom created by color
+        array.forEach(element => {
+
+          // grab button element
+          const toggleColorButton = document.createElement('button');
+
+          // create id name "toggle + color name"
+          let colorButtonIdName = ('toggle' + element[0].toUpperCase() + element.slice(1));
+
+          // set id attribute of button with custom ID
+          toggleColorButton.setAttribute('id', colorButtonIdName);
+
+          // create custom button text "toggle + color name"
+          let colorButtonText = ('Toggle ' + element[0].toUpperCase() + element.slice(1));
+
+          // set text content of button with above custom created text
+          toggleColorButton.textContent = colorButtonText;
+
+          // add button to button container 'div'
+          buttonContainer.appendChild(toggleColorButton);
+        });
+        
+        // ##### CREATE JavaScript Functionality #####
+        // standard hide / show functionality
+
+        // create HTML collection of all elements with class name 'square'
+        // convert to an array called '_squares'
+        const squares = document.getElementsByClassName('square');
+        const _squares = [... squares];
+
+        // grab button element with id 'hideAllTheSquares'
+        const hide = document.getElementById('hideAllTheSquares');
+
+        // grab button element with id 'showAllTheSquares'
+        const show = document.getElementById('showAllTheSquares');
+
+        // event listener on click
+        // for each square element add class 'hide', which will
+        // set display to 'none'
+        hide.addEventListener('click', function() {
+          _squares.forEach(element => {
+            element.classList.add('hide');
+          });
+        });
+
+        // event listener on click
+        // for each square element remove class 'hide', which will
+        // make each element visible again
+        show.addEventListener('click', function() {
+          _squares.forEach(element => {
+            element.classList.remove('hide');
+          });
+        });
+        
+        // ##### CREATE custom JavaScript Functionality #####
+        // custom color button toggle functionality
+        
+        // the remaining event listners toggle 'hide' for each color element in array
+        // this for each method will create a custom function for each color, and
+        // immediatly invoke it via IIFE and element (color name) passed in
+        array.forEach(element => {
+
+          // create custom text value that holds ID name for each color button (i.e. "toggleBlue")
+          let colorButtonIdName = ('toggle' + element[0].toUpperCase() + element.slice(1));
+
+          // this function will create a custom event listener on click for each color button
+          // the listener on the button element will toggle class name 'hide' to make 'div' color square
+          // display to none
+          // *** the function is written as a function expression and immediately invoked via IIFE
+          // color name is passed in as element
+          (function toggleColorButtonEventListener (element) {
+          
+            document.getElementById(colorButtonIdName).addEventListener('click', function() {
+              document.getElementById(element).classList.toggle('hide');
+            });
+
+          })(element);
+
+        });
+       
+      }
+      
+      generateDom(colors);
+      
+      </script>
+
+</body>
 
 </html>
-
-
-
-
-
