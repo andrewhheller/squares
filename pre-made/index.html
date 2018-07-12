@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <title>Squares Workshop</title>
+  <meta charset="UTF-8">
+
+  <style>
+  
+    .squareContainer {
+      display: flex;
+      justify-content: space-around;
+      height: 100px;
+    }
+
+    .square {
+      width: 100px;
+      height: 100px;
+      border: solid 1px black;
+    }
+
+    #red {
+      background-color: red;
+    }
+
+    #green {
+      background-color: green;
+    }
+
+    #blue {
+      background-color: blue;
+    }
+
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .hide {
+       display: none;
+     }
+  
+  </style>
+
+</head>
+
+<body>
+
+  <h1>The Square Demo</h1>
+  
+  <div class="squareContainer">
+
+    <div id="red" class="square">
+    </div>
+
+    <div id="green" class="square">
+    </div>
+
+    <div id="blue" class="square">
+    </div>
+
+  </div>
+
+  <hr/>
+
+  <div class="buttonContainer">
+
+    <button id="hideAllTheSquares">Hide all the squares.</button>
+    <button id="showAllTheSquares">Show all the squares.</button>
+    <button id="toggleGreen">Toggle Green</button>
+    <button id="toggleBlue">Toggle Blue</button>
+    <button id="toggleRed">Toggle Red</button>
+
+  </div>
+
+
+
+
+</body>
+
+<script>
+
+  const squares = document.getElementsByClassName('square');
+  const squaresArray = [... squares];
+
+  const hide = document.getElementById('hideAllTheSquares');
+  const show = document.getElementById('showAllTheSquares');
+  const togggleGreen = document.getElementById('toggleGreen');
+  const togggleBlue= document.getElementById('toggleBlue');
+  const togggleRed = document.getElementById('toggleRed');
+  const greenSquare = document.getElementById('green');
+  const blueSquare = document.getElementById('blue');
+  const redSquare = document.getElementById('red');
+
+  hide.addEventListener('click', function() {
+
+    // squaresArray.forEach(element => {
+    //   element.style.display = 'none';
+    // });
+
+    squaresArray.forEach(element => {
+      element.classList.add('hide');
+    });
+
+
+
+  });
+
+
+  show.addEventListener('click', function() {
+
+    squaresArray.forEach(element => {
+      element.classList.remove('hide');
+    });
+
+  })
+
+  toggleGreen.addEventListener('click', function() {
+
+    greenSquare.classList.toggle('hide');
+
+  })
+
+  toggleBlue.addEventListener('click', function() {
+
+    blueSquare.classList.toggle('hide');
+
+  })
+
+  toggleRed.addEventListener('click', function() {
+
+    redSquare.classList.toggle('hide');
+
+  })
+
+
+</script>
+
+
+
+
+
+
+</html>
